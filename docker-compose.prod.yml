@@ -11,10 +11,12 @@ services:
      - ./mysql/my.cnf:/etc/mysql/my.cnf
     # MariaDB port is not exposed to the host machine in production.
     environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
+    secrets:
+      - db_root_password
     networks:
       app-network:
         aliases:
@@ -94,7 +96,12 @@ networks:
   app-network:
     driver: bridge
 
-# Volumes
+#Volumes
 volumes:
   ogame-dbdata:
     driver: local
+
+#Secrets
+secrets:
+  db_root_password:
+    file: ./secrets/db_pass
