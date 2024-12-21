@@ -16,4 +16,5 @@ yarn-error.log
 .sql
 .codebuddy
 /secrets
+/backup
 
